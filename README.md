@@ -18,6 +18,8 @@ Simple & Minimal Microservice Library Application.
 The API documentation is available on the playground at `http://localhost:3000/graphql`.
 You can explore the schema, make queries and mutations.
 
+![Sample](sample.png "Sample")
+
 ## Technologies Used
 
 - NestJS
