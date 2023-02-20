@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_PASSWORD: pg@32503250
       POSTGRES_USER: salar
-      POSTGRES_DB: true
+      POSTGRES_DB: user
   bookdb:
     image: 'postgres:latest'
     volumes:
