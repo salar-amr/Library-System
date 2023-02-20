@@ -18,6 +18,11 @@ Simple & Minimal Microservice Library Application.
 The API documentation is available on the playground at `http://localhost:3000/graphql`.
 You can explore the schema, make queries and mutations.
 
+@Important
+There are two default user with admin role:
+AdminUser1 => email: admin1@g.com password: admin
+AdminUser2 => email: admin2@g.com password: admin
+
 ![Sample](sample.png "Sample")
 
 ## Technologies Used
