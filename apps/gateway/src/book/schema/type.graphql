@@ -1,0 +1,16 @@
+scalar Date
+
+directive @admin on FIELD_DEFINITION
+
+enum Order {
+  ASC
+  DESC
+}
+
+type Book {
+    id: Int
+    name: String
+    available: Boolean
+    availability: String
+    user: User @admin
+}

@@ -1,0 +1,72 @@
+version: '3'
+services:
+  userdb:
+    image: 'postgres:latest'
+    volumes:
+      - ./user.sql:/docker-entrypoint-initdb.d/user.sql
+    environment:
+      POSTGRES_PASSWORD: pg@32503250
+      POSTGRES_USER: salar
+      POSTGRES_DB: true
+  bookdb:
+    image: 'postgres:latest'
+    volumes:
+      - ./book.sql:/docker-entrypoint-initdb.d/book.sql
+    environment:
+      POSTGRES_PASSWORD: pg@32503250
+      POSTGRES_USER: salar
+      POSTGRES_DB: book
+  redis:
+    image: redis:latest
+    restart: always
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - 15672:15672
+  gateway:
+    build:
+      context: .
+      dockerfile: ./apps/gateway/Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - rabbitmq
+      - user
+      - book
+    environment:
+      RMQ_URL: amqp://rabbitmq:5672
+      PORT: 3000  
+      JWT_SECRET: sdfdmmnif48jf48 
+  user:
+    build:
+      context: .
+      dockerfile: ./apps/user/Dockerfile
+    depends_on:
+      - userdb
+      - rabbitmq
+    environment:
+      USER_DB_HOST: userdb
+      USER_DB_PORT: 5432
+      USER_DB_USERNAME: salar
+      USER_DB_PASSWORD: pg@32503250
+      USER_DB_NAME: user
+      RMQ_URL: amqp://rabbitmq:5672
+  book:
+    build:
+      context: .
+      dockerfile: ./apps/book/Dockerfile
+    depends_on:
+      - bookdb
+      - rabbitmq
+      - redis
+    environment:
+      BOOK_DB_HOST: bookdb
+      BOOK_DB_PORT: 5432
+      BOOK_DB_USERNAME: salar
+      BOOK_DB_PASSWORD: pg@32503250
+      BOOK_DB_NAME: book
+      RMQ_URL: amqp://rabbitmq:5672
+      REDIS_HOST: redis
+      REDIS_PORT: 6379

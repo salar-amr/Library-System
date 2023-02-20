@@ -1,0 +1,25 @@
+input RentInput {
+    id: Int!
+    availability: Date!
+}
+
+input RetainInput {
+    id: Int!
+}
+
+input BookInput {
+    id: Int
+    name: String
+    available: Boolean
+}
+
+input BookOrderInput {
+    id: Order
+}
+
+input BookQuery {
+    where: BookInput
+    take: Int
+    skip: Int
+    order: BookOrderInput
+}

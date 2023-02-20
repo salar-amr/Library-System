@@ -1,0 +1,7 @@
+scalar Email
+scalar NonEmptyString
+
+input UserInput {
+    email: Email!
+    password: NonEmptyString!
+}

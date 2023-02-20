@@ -1,0 +1,5 @@
+type Mutation {
+    RentBook(data: RentInput!): Book!
+
+    RetainBook(data: RetainInput!): Book!
+}
